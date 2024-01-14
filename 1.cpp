@@ -6,7 +6,7 @@ public:
         
         for(int i=1; i <= numRows; i++) {
             for(int j=1; j<=i; j++) {
-             if(j==1 or == numRows ) dp[i][j] = 1;
+             if(j==1 or j==numRows ) dp[i][j] = 1;
              else {
                  dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
              }   
