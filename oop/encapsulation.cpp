@@ -1,51 +1,60 @@
 #include <iostream>
 using namespace std;
 
-class BankAccount {
+class Student {
 private:
-    string accountHolder;
-    double balance;
+    string name;
+    int rollNumber;
+    float gpa;
 
 public:
-    BankAccount(string name, double initialBalance) {
-        accountHolder = name;
-        balance = initialBalance;
+    // Constructor
+    Student(string n, int r, float g) {
+        name = n;
+        rollNumber = r;
+        setGPA(g); // validate GPA through setter
     }
 
-    // Public method to deposit money
-    void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            cout << "Deposited $" << amount << " successfully." << endl;
-        } else {
-            cout << "Invalid deposit amount." << endl;
-        }
+    // Getter for name
+    string getName() {
+        return name;
     }
 
-    // Public method to withdraw money
-    void withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            cout << "Withdrew $" << amount << " successfully." << endl;
-        } else {
-            cout << "Invalid or insufficient amount." << endl;
-        }
+    // Setter for name
+    void setName(string newName) {
+        name = newName;
     }
 
-    // Public method to check balance
-    void displayBalance() {
-        cout << "Account Holder: " << accountHolder << ", Balance: $" << balance << endl;
+    // Getter for GPA
+    float getGPA() {
+        return gpa;
+    }
+
+    // Setter for GPA (with validation)
+    void setGPA(float newGPA) {
+        if (newGPA >= 0.0 && newGPA <= 4.0)
+            gpa = newGPA;
+        else
+            cout << "Invalid GPA. Must be between 0.0 and 4.0." << endl;
+    }
+
+    void displayInfo() {
+        cout << "Name: " << name << ", Roll: " << rollNumber << ", GPA: " << gpa << endl;
     }
 };
 
 int main() {
-    BankAccount account("Alice", 1000.0);
-    account.deposit(500);
-    account.withdraw(200);
-    account.displayBalance();
+    Student s("John", 101, 3.5);
 
-    // account.balance = 10000; // ❌ Not allowed (private)
-    // account.accountHolder = "Bob"; // ❌ Not allowed (private)
+    s.displayInfo();
+    s.setGPA(4.2);      // Invalid, will show error
+    s.setGPA(3.8);      // Valid
+    s.setName("Johnny");
+
+    cout << "\nUpdated Info:\n";
+    s.displayInfo();
+
+    // s.gpa = 10; // ❌ Not allowed, gpa is private
 
     return 0;
 }
